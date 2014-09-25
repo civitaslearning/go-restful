@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/emicklei/go-restful"
+	"github.com/civitaslearning/go-restful"
 	"github.com/gorilla/schema"
 	"io"
 	"net/http"

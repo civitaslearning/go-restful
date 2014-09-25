@@ -3,7 +3,7 @@ package main
 import (
 	"appengine"
 	"appengine/memcache"
-	"github.com/emicklei/go-restful"
+	"github.com/civitaslearning/go-restful"
 	"github.com/emicklei/go-restful/swagger"
 	"net/http"
 )
