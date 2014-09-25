@@ -144,6 +144,7 @@ func (r *Response) WriteAsJson(value interface{}) error {
 	}
 	if PrettyPrintResponses {
 		output, err = json.MarshalIndent(value, " ", " ")
+		output = append(output, '\n')
 	} else {
 		output, err = json.Marshal(value)
 	}
