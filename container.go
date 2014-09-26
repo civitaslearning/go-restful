@@ -226,8 +226,16 @@ func (c Container) RegisteredWebServices() []*WebService {
 
 // computeAllowedMethods returns a list of HTTP methods that are valid for a Request
 func (c Container) computeAllowedMethods(req *Request) []string {
-	// Go through all RegisteredWebServices() and all its Routes to collect the options
 	methods := []string{}
+	for _, rt := range c.ComputeMatchingRoutes(req) {
+		methods = append(methods, rt.Method)
+	}
+	return methods
+}
+
+func (c Container) ComputeMatchingRoutes(req *Request) []Route {
+	// Go through all RegisteredWebServices() find all the matching Routes
+	routes := []Route{}
 	requestPath := req.Request.URL.Path
 	for _, ws := range c.RegisteredWebServices() {
 		matches := ws.compiledPathExpression().Matcher.FindStringSubmatch(requestPath)
@@ -238,14 +246,13 @@ func (c Container) computeAllowedMethods(req *Request) []string {
 				if matches != nil {
 					lastMatch := matches[len(matches)-1]
 					if lastMatch == "" || lastMatch == "/" { // do not include if value is neither empty nor ‘/’.
-						methods = append(methods, rt.Method)
+						routes = append(routes, rt)
 					}
 				}
 			}
 		}
 	}
-	// methods = append(methods, "OPTIONS")  not sure about this
-	return methods
+	return routes
 }
 
 // newBasicRequestResponse creates a pair of Request,Response from its http versions.
