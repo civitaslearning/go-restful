@@ -233,6 +233,7 @@ func (c Container) computeAllowedMethods(req *Request) []string {
 	return methods
 }
 
+// ComputeMatchingRoutes retuns a list of Routes that are valid for a request not counting the Method
 func (c Container) ComputeMatchingRoutes(req *Request) []Route {
 	// Go through all RegisteredWebServices() find all the matching Routes
 	routes := []Route{}
