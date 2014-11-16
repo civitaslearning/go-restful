@@ -184,14 +184,15 @@ func (r *Response) WriteErrorString(status int, errorReason string) error {
 }
 
 // WriteHeader is overridden to remember the Status Code that has been written.
-// Note that using this method, the status value is only written when
-// - calling WriteEntity
-// - or directly WriteAsXml,WriteAsJson.
-// - or if the status is 204 (http.StatusNoContent)
+// Note that using this method, the status value is only written when:
+// (1) calling WriteEntity,
+// (2) or directly calling WriteAsXml or WriteAsJson, or
+// (3) or if the status is one that should not have any content, specifically
+// 204 (http.StatusNoContent) or 304 (http.StatusNotModified)
 func (r *Response) WriteHeader(httpStatus int) {
 	r.statusCode = httpStatus
 	// if 204 then WriteEntity will not be called so we need to pass this code
-	if http.StatusNoContent == httpStatus {
+	if http.StatusNoContent == httpStatus || http.StatusNotModified == httpStatus {
 		r.ResponseWriter.WriteHeader(httpStatus)
 	}
 }
