@@ -57,7 +57,7 @@ func (r RouterJSR311) detectRoute(routes []Route, httpRequest *http.Request) (*R
 	inputMediaOk := methodOk
 	// content-type
 	contentType := httpRequest.Header.Get(HEADER_ContentType)
-	if httpRequest.ContentLength > 0 {
+	if httpRequest.ContentLength != 0 {
 		inputMediaOk = []Route{}
 		for _, each := range methodOk {
 			if each.matchesContentType(contentType) {
