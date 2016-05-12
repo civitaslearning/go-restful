@@ -112,7 +112,7 @@ func (r *Response) WriteAsXml(value interface{}) error {
 		return nil
 	}
 	if PrettyPrintResponses {
-		output, err = xml.MarshalIndent(value, " ", " ")
+		output, err = xml.MarshalIndent(value, "", "  ")
 	} else {
 		output, err = xml.Marshal(value)
 	}
@@ -143,7 +143,7 @@ func (r *Response) WriteAsJson(value interface{}) error {
 		return nil
 	}
 	if PrettyPrintResponses {
-		output, err = json.MarshalIndent(value, " ", " ")
+		output, err = json.MarshalIndent(value, "", "  ")
 		output = append(output, '\n')
 	} else {
 		output, err = json.Marshal(value)
