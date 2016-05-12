@@ -26,7 +26,7 @@ func TestServiceToApi(t *testing.T) {
 		WebServices:    []*restful.WebService{ws}}
 	sws := newSwaggerService(cfg)
 	decl := sws.composeDeclaration(ws, "/tests")
-	_, err := json.MarshalIndent(decl, " ", " ")
+	_, err := json.MarshalIndent(decl, "", "  ")
 	if err != nil {
 		t.Fatal(err.Error())
 	}

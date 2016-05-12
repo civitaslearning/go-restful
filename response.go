@@ -112,7 +112,7 @@ func (r *Response) WriteAsXml(value interface{}) error {
 		return nil
 	}
 	if PrettyPrintResponses {
-		output, err = xml.MarshalIndent(value, " ", " ")
+		output, err = xml.MarshalIndent(value, "", "  ")
 	} else {
 		output, err = xml.Marshal(value)
 	}

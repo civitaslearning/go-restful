@@ -26,7 +26,7 @@ func compareJson(t *testing.T, flatCompare bool, value interface{}, expectedJson
 	if flatCompare {
 		output, err = json.Marshal(value)
 	} else {
-		output, err = json.MarshalIndent(value, " ", " ")
+		output, err = json.MarshalIndent(value, "", "  ")
 	}
 	if err != nil {
 		t.Error(err.Error())
